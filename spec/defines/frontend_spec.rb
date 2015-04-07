@@ -19,10 +19,16 @@ describe 'haproxy::frontend' do
       }
     end
 
-    it { should contain_datacat__fragment('croy_frontend_block').with(
-      'order'   => '15-croy-00',
+    it { should contain_datacat_fragment('croy_frontend_block').with(
       'target'  => '/etc/haproxy/haproxy.cfg',
-      'content' => "\nfrontend croy\n  bind 1.1.1.1:18140 \n  option tcplog\n"
+      'data'   => {
+        'frontends' => {
+          'croy' => {
+            'config' => "\nfrontend croy\n  bind 1.1.1.1:18140 \n  option tcplog\n",
+            'acls'   => [],
+          }
+        }
+      },
     ) }
   end
   # C9948 C9947
@@ -38,10 +44,16 @@ describe 'haproxy::frontend' do
       }
     end
 
-    it { should contain_datacat__fragment('apache_frontend_block').with(
-      'order'   => '15-apache-00',
+    it { should contain_datacat_fragment('apache_frontend_block').with(
       'target'  => '/etc/haproxy/haproxy.cfg',
-      'content' => "\nfrontend apache\n  bind 23.23.23.23:80 \n  bind 23.23.23.23:443 \n  option tcplog\n"
+      'data'   => {
+        'frontends' => {
+          'croy' => {
+            'config' => "\nfrontend apache\n  bind 23.23.23.23:80 \n  bind 23.23.23.23:443 \n  option tcplog\n",
+            'acls'   => [],
+          }
+        }
+      },
     ) }
   end
   # C9948
@@ -54,10 +66,16 @@ describe 'haproxy::frontend' do
       }
     end
 
-    it { should contain_datacat__fragment('apache_frontend_block').with(
-      'order'   => '15-apache-00',
+    it { should contain_datacat_fragment('apache_frontend_block').with(
       'target'  => '/etc/haproxy/haproxy.cfg',
-      'content' => "\nfrontend apache\n  bind 23.23.23.23:80 \n  bind 23.23.23.23:443 \n  option tcplog\n"
+      'data'   => {
+        'frontends' => {
+          'croy' => {
+            'config' => "\nfrontend apache\n  bind 23.23.23.23:80 \n  bind 23.23.23.23:443 \n  option tcplog\n",
+            'acls'   => [],
+          }
+        }
+      },
     ) }
   end
   # C9971
@@ -70,10 +88,16 @@ describe 'haproxy::frontend' do
       }
     end
 
-    it { should contain_datacat__fragment('apache_frontend_block').with(
-      'order'   => '15-apache-00',
+    it { should contain_datacat_fragment('apache_frontend_block').with(
       'target'  => '/etc/haproxy/haproxy.cfg',
-      'content' => "\nfrontend apache\n  option tcplog\n"
+      'data'   => {
+        'frontends' => {
+          'croy' => {
+            'config' => "\nfrontend apache\n  option tcplog\n",
+            'acls'   => [],
+          }
+        }
+      },
     ) }
   end
   # C9972
@@ -141,10 +165,16 @@ describe 'haproxy::frontend' do
       }
     end
 
-    it { should contain_datacat__fragment('apache_frontend_block').with(
-      'order'   => '15-apache-00',
+    it { should contain_datacat_fragment('apache_frontend_block').with(
       'target'  => '/etc/haproxy/haproxy.cfg',
-      'content' => "\nfrontend apache\n  bind 23.23.23.23:80 \n  bind 23.23.23.24:80 \n  option tcplog\n"
+      'data'   => {
+        'frontends' => {
+          'croy' => {
+            'config' => "\nfrontend apache\n  bind 23.23.23.23:80 \n  bind 23.23.23.24:80 \n  option tcplog\n",
+            'acls'   => [],
+          }
+        }
+      },
     ) }
   end
   context "when bind options are provided" do
@@ -157,10 +187,16 @@ describe 'haproxy::frontend' do
       }
     end
 
-    it { should contain_datacat__fragment('apache_frontend_block').with(
-      'order'   => '15-apache-00',
+    it { should contain_datacat_fragment('apache_frontend_block').with(
       'target'  => '/etc/haproxy/haproxy.cfg',
-      'content' => "\nfrontend apache\n  bind 1.1.1.1:80 the options go here\n  bind 1.1.1.1:8080 the options go here\n  option tcplog\n"
+      'data'   => {
+        'frontends' => {
+          'croy' => {
+            'config' => "\nfrontend apache\n  bind 1.1.1.1:80 the options go here\n  bind 1.1.1.1:8080 the options go here\n  option tcplog\n",
+            'acls'   => [],
+          }
+        }
+      },
     ) }
   end
   context "when a comma-separated list of ports is provided" do
@@ -172,10 +208,16 @@ describe 'haproxy::frontend' do
       }
     end
 
-    it { should contain_datacat__fragment('apache_frontend_block').with(
-      'order'   => '15-apache-00',
+    it { should contain_datacat_fragment('apache_frontend_block').with(
       'target'  => '/etc/haproxy/haproxy.cfg',
-      'content' => "\nfrontend apache\n  bind 23.23.23.23:80 \n  bind 23.23.23.23:443 \n  option tcplog\n"
+      'data'   => {
+        'frontends' => {
+          'croy' => {
+            'config' => "\nfrontend apache\n  bind 23.23.23.23:80 \n  bind 23.23.23.23:443 \n  option tcplog\n",
+            'acls'   => [],
+          }
+        }
+      },
     ) }
   end
 
@@ -186,10 +228,16 @@ describe 'haproxy::frontend' do
         :bind  => {'1.1.1.1:80' => []},
       }
     end
-    it { should contain_datacat__fragment('apache_frontend_block').with(
-      'order'   => '15-apache-00',
+    it { should contain_datacat_fragment('apache_frontend_block').with(
       'target'  => '/etc/haproxy/haproxy.cfg',
-      'content' => "\nfrontend apache\n  bind 1.1.1.1:80 \n  option tcplog\n"
+      'data'   => {
+        'frontends' => {
+          'croy' => {
+            'config' => "\nfrontend apache\n  bind 1.1.1.1:80 \n  option tcplog\n",
+            'acls'   => [],
+          }
+        }
+      },
     ) }
   end
 
@@ -206,10 +254,16 @@ describe 'haproxy::frontend' do
         },
       }
     end
-    it { should contain_datacat__fragment('apache_frontend_block').with(
-      'order'   => '15-apache-00',
+    it { should contain_datacat_fragment('apache_frontend_block').with(
       'target'  => '/etc/haproxy/haproxy.cfg',
-      'content' => "\nfrontend apache\n  bind /var/run/ssl-frontend.sock user root mode 600 accept-proxy\n  bind 1.1.1.1:80 \n  bind 2.2.2.2:8000-8010 ssl crt public.puppetlabs.com\n  bind :443,:8443 ssl crt public.puppetlabs.com no-sslv3\n  bind fd@${FD_APP1} \n  option tcplog\n"
+      'data'   => {
+        'frontends' => {
+          'croy' => {
+            'config' => "\nfrontend apache\n  bind /var/run/ssl-frontend.sock user root mode 600 accept-proxy\n  bind 1.1.1.1:80 \n  bind 2.2.2.2:8000-8010 ssl crt public.puppetlabs.com\n  bind :443,:8443 ssl crt public.puppetlabs.com no-sslv3\n  bind fd@${FD_APP1} \n  option tcplog\n",
+            'acls'   => [],
+          }
+        }
+      },
     ) }
   end
 
