@@ -44,7 +44,7 @@ describe 'haproxy', :type => :class do
             { 'custom_fragment' => "listen stats :9090\n  mode http\n  stats uri /\n  stats auth puppet:puppet\n" }
           end
           it 'should set the haproxy package' do
-            subject.should contain_datacat__fragment('haproxy-base').with_data(
+            subject.should contain_datacat_fragment('haproxy-base').with_data(
               {'base'=> "listen stats :9090\n  mode http\n  stats uri /\n  stats auth puppet:puppet\n"}
             )
           end
@@ -73,14 +73,14 @@ describe 'haproxy', :type => :class do
             )
           end
           it 'should contain a header concat fragment' do
-            subject.should contain_datacat__fragment('00-header').with(
+            subject.should contain_datacat_fragment('00-header').with(
               'target'  => '/etc/haproxy/haproxy.cfg',
               'order'   => '01',
               'content' => "# This file managed by Puppet\n"
             )
           end
           it 'should contain a haproxy-base concat fragment' do
-            subject.should contain_datacat__fragment('haproxy-base').with(
+            subject.should contain_datacat_fragment('haproxy-base').with(
               'target'  => '/etc/haproxy/haproxy.cfg',
             )
           end
@@ -140,7 +140,7 @@ describe 'haproxy', :type => :class do
             )
           end
           it 'should contain a haproxy-base concat fragment' do
-            subject.should contain_datacat__fragment('haproxy-base').with(
+            subject.should contain_datacat_fragment('haproxy-base').with(
               'target'  => '/etc/haproxy/haproxy.cfg',
             )
           end
@@ -204,7 +204,7 @@ describe 'haproxy', :type => :class do
           )
         end
         it 'should contain a haproxy-base concat fragment' do
-          subject.should contain_datacat__fragment('haproxy-base').with(
+          subject.should contain_datacat_fragment('haproxy-base').with(
             'target'  => '/usr/local/etc/haproxy.conf',
           )
         end
@@ -258,14 +258,14 @@ describe 'haproxy', :type => :class do
           )
         end
         it 'should contain a header concat fragment' do
-          subject.should contain_datacat__fragment('00-header').with(
+          subject.should contain_datacat_fragment('00-header').with(
             'target'  => '/usr/local/etc/haproxy.conf',
             'order'   => '01',
             'content' => "# This file managed by Puppet\n"
           )
         end
         it 'should contain a haproxy-base concat fragment' do
-          subject.should contain_datacat__fragment('haproxy-base').with(
+          subject.should contain_datacat_fragment('haproxy-base').with(
             'target'  => '/usr/local/etc/haproxy.conf',
             'order'   => '10'
           )
