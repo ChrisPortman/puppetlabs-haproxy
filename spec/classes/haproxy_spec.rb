@@ -45,7 +45,7 @@ describe 'haproxy', :type => :class do
           end
           it 'should set the haproxy package' do
             subject.should contain_datacat_fragment('haproxy-base').with_data(
-              'data' => /listen stats :9090\n  mode http\n  stats uri \/\n  stats auth puppet:puppet\n/
+              'base' => /listen stats :9090\n  mode http\n  stats uri \/\n  stats auth puppet:puppet\n/
             )
           end
         end
