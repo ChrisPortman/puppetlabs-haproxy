@@ -34,29 +34,6 @@ describe 'haproxy::balancermember' do
     ) }
   end
 
-  context 'with a balancermember with ensure => absent ' do
-    let(:params) do
-      {
-        :name              => 'tyler',
-        :listening_service => 'croy',
-        :ports             => '18140',
-        :ensure            => 'absent'
-      }
-    end
-
-    it { should contain_datacat_fragment('croy_balancermember_tyler').with(
-      'target'  => '/etc/haproxy/haproxy.cfg',
-      'ensure'  => 'absent',
-      'data'   => {
-        'listening_services' => {
-          'croy' => {
-            'members' => ["  server dero 1.1.1.1:18140 \n"],
-          },
-        },
-      },
-    ) }
-  end
-
   context 'with multiple balancermember options' do
     let(:params) do
       {
