@@ -1,0 +1,38 @@
+# This file managed by Puppet
+
+# Global and default Configuration
+<%= @data['base'] %>
+
+# Frontends
+<%- @data['frontends'].keys.sort.each do |f| -%>
+<%- config = @data['frontends'][f] -%>
+<%= config['config'] %>
+<%- config['acls'].sort.each do |a| -%>
+<%= a %>
+<%- end -%>
+<%- end -%>
+
+# Listens and Backends
+<%- @data['listening_services'].keys.sort.each do |l| -%>
+<%- config = @data['listening_services'][l] -%>
+<%= config['config'] %>
+<%- config['members'].sort.each do |m| -%>
+<%= m %>
+<%- end -%>
+<%- end -%>
+
+# Peers
+<%- @data['peers'].keys.sort.each do |p| -%>
+<%- config = @data['peers'][p] -%>
+<%= config['config'] %>
+<%- config['members'].sort.each do |m| -%>
+<%= m %>
+<%- end -%>
+<%- end -%>
+
+# Userlists
+<%- @data['userlists'].keys.sort.each do |u| -%>
+<%- config = @data['userlists'][u] -%>
+<%= config['config'] %>
+<%- end -%>
+

@@ -3,10 +3,22 @@ define haproxy::peers (
 ) {
 
   # Template uses: $name, $ipaddress, $ports, $options
-  concat::fragment { "${name}_peers_block":
-    order   => "30-peers-00-${name}",
-    target  => '/etc/haproxy/haproxy.cfg',
-    content => template('haproxy/haproxy_peers_block.erb'),
+# concat::fragment { "${name}_peers_block":
+#   order   => "30-peers-00-${name}",
+#   target  => '/etc/haproxy/haproxy.cfg',
+#   content => template('haproxy/haproxy_peers_block.erb'),
+# }
+
+  datacat_fragment { "${name}_peers_block":
+    target => $haproxy::config_file,
+    data   => {
+      'peers' => {
+        "${name}" => {
+          'config'  => template("${module_name}/haproxy_peers_block.erb"),
+          'members' => [],
+        }
+      }
+    },
   }
 
   if $collect_exported {

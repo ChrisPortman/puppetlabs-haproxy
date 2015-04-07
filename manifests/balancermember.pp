@@ -97,10 +97,22 @@ define haproxy::balancermember (
 ) {
 
   # Template uses $ipaddresses, $server_name, $ports, $option
-  concat::fragment { "${listening_service}_balancermember_${name}":
-    ensure  => $ensure,
-    order   => "20-${listening_service}-01-${name}",
-    target  => $::haproxy::config_file,
-    content => template('haproxy/haproxy_balancermember.erb'),
+# concat::fragment { "${listening_service}_balancermember_${name}":
+#   ensure  => $ensure,
+#   order   => "20-${listening_service}-01-${name}",
+#   target  => $::haproxy::config_file,
+#   content => template('haproxy/haproxy_balancermember.erb'),
+# }
+
+  datacat_fragment { "${listening_service}_balancermember_${name}":
+    target => $haproxy::config_file,
+    data   => {
+      'listening_services' => {
+        "${listening_service}" => {
+          'members' => [template('haproxy/haproxy_balancermember.erb')],
+        }
+      }
+    },
   }
+
 }

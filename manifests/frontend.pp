@@ -93,9 +93,21 @@ define haproxy::frontend (
     validate_hash($bind)
   }
   # Template uses: $name, $ipaddress, $ports, $options
-  concat::fragment { "${name}_frontend_block":
-    order   => "15-${name}-00",
-    target  => $::haproxy::config_file,
-    content => template('haproxy/haproxy_frontend_block.erb'),
+# concat::fragment { "${name}_frontend_block":
+#   order   => "15-${name}-00",
+#   target  => $::haproxy::config_file,
+#   content => template('haproxy/haproxy_frontend_block.erb'),
+# }
+
+  datacat_fragment { "${name}_frontend_block":
+    target => $haproxy::config_file,
+    data   => {
+      'frontends' => {
+        "${name}" => {
+          'config' => template("${module_name}/haproxy_frontend_block.erb"),
+          'acls'   => [],
+        }
+      }
+    },
   }
 }

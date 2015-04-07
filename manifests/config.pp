@@ -4,24 +4,32 @@ class haproxy::config inherits haproxy {
     fail("Use of private class ${name} by ${caller_module_name}")
   }
 
-  concat { $haproxy::config_file:
+  datacat { $haproxy::config_file:
     owner => '0',
     group => '0',
     mode  => '0644',
+    template => "${module_name}/haproxy-config-init.erb",
   }
 
   # Simple Header
-  concat::fragment { '00-header':
-    target  => $haproxy::config_file,
-    order   => '01',
-    content => "# This file managed by Puppet\n",
-  }
+# concat::fragment { '00-header':
+#   target  => $haproxy::config_file,
+#   order   => '01',
+#   content => "# This file managed by Puppet\n",
+# }
 
   # Template uses $global_options, $defaults_options
-  concat::fragment { 'haproxy-base':
-    target  => $haproxy::config_file,
-    order   => '10',
-    content => template('haproxy/haproxy-base.cfg.erb'),
+# concat::fragment { 'haproxy-base':
+#   target  => $haproxy::config_file,
+#   order   => '10',
+#   content => template('haproxy/haproxy-base.cfg.erb'),
+# }
+
+  datacat_fragment { 'haproxy-base':
+    target => $haproxy::config_file,
+    data   => {
+      'base' => template("${module_name}/haproxy-base.cfg.erb"),
+    },
   }
 
   if $haproxy::global_options['chroot'] {
