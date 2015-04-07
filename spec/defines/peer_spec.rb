@@ -17,7 +17,7 @@ describe 'haproxy::peer' do
       }
     end
 
-    it { should contain_concat__fragment('peers-tyler-dero').with(
+    it { should contain_datacat__fragment('peers-tyler-dero').with(
       'order'   => '30-peers-01-tyler-dero',
       'target'  => '/etc/haproxy/haproxy.cfg',
       'content' => "  peer dero 1.1.1.1:1024\n"
@@ -33,7 +33,7 @@ describe 'haproxy::peer' do
       }
     end
 
-    it { should contain_concat__fragment('peers-tyler-dero').with(
+    it { should contain_datacat__fragment('peers-tyler-dero').with(
       'ensure' => 'absent'
     ) }
   end
