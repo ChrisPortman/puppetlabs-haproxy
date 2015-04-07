@@ -1,8 +1,12 @@
 # This file managed by Puppet
 
+<%- if @data -%>
+<%- if @data['base'] -%>
 # Global and default Configuration
 <%= @data['base'] %>
+<%- end -%>
 
+<%- if @data['frontends'] -%>
 # Frontends
 <%- @data['frontends'].keys.sort.each do |f| -%>
 <%- config = @data['frontends'][f] -%>
@@ -11,7 +15,9 @@
 <%= a %>
 <%- end -%>
 <%- end -%>
+<%- end -%>
 
+<%- if @data['listening_services'] -%>
 # Listens and Backends
 <%- @data['listening_services'].keys.sort.each do |l| -%>
 <%- config = @data['listening_services'][l] -%>
@@ -20,7 +26,9 @@
 <%= m %>
 <%- end -%>
 <%- end -%>
+<%- end -%>
 
+<%- if @data['peers'] -%>
 # Peers
 <%- @data['peers'].keys.sort.each do |p| -%>
 <%- config = @data['peers'][p] -%>
@@ -29,10 +37,13 @@
 <%= m %>
 <%- end -%>
 <%- end -%>
+<%- end -%>
 
+<%- if @data['userlists'] -%>
 # Userlists
 <%- @data['userlists'].keys.sort.each do |u| -%>
 <%- config = @data['userlists'][u] -%>
 <%= config['config'] %>
 <%- end -%>
-
+<%- end -%>
+<%- end -%>
