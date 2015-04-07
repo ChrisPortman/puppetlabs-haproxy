@@ -3,7 +3,6 @@ require 'spec_helper'
 describe 'haproxy', :type => :class do
   let(:default_facts) do
     {
-      :concat_basedir => '/dne',
       :ipaddress      => '10.10.10.10'
     }
   end
@@ -58,7 +57,7 @@ describe 'haproxy', :type => :class do
           let(:facts) do
             { :osfamily => osfamily }.merge default_facts
           end
-          it 'should set up /etc/haproxy/haproxy.cfg as a concat resource' do
+          it 'should set up /etc/haproxy/haproxy.cfg as a datacat resource' do
             subject.should contain_datacat('/etc/haproxy/haproxy.cfg').with(
               'owner' => '0',
               'group' => '0',
@@ -120,7 +119,7 @@ describe 'haproxy', :type => :class do
           it 'should not manage the haproxy service' do
             subject.should_not contain_service('haproxy')
           end
-          it 'should set up /etc/haproxy/haproxy.cfg as a concat resource' do
+          it 'should set up /etc/haproxy/haproxy.cfg as a datacat resource' do
             subject.should contain_datacat('/etc/haproxy/haproxy.cfg').with(
               'owner' => '0',
               'group' => '0',
@@ -184,7 +183,7 @@ describe 'haproxy', :type => :class do
         let(:facts) do
           { :osfamily => 'FreeBSD' }.merge default_facts
         end
-        it 'should set up /usr/local/etc/haproxy.conf as a concat resource' do
+        it 'should set up /usr/local/etc/haproxy.conf as a datacat resource' do
           subject.should contain_datacat('/usr/local/etc/haproxy.conf').with(
             'owner' => '0',
             'group' => '0',
@@ -238,7 +237,7 @@ describe 'haproxy', :type => :class do
         it 'should not manage the haproxy service' do
           subject.should_not contain_service('haproxy')
         end
-        it 'should set up /usr/local/etc/haproxy.conf as a concat resource' do
+        it 'should set up /usr/local/etc/haproxy.conf as a datacat resource' do
           subject.should contain_datacat('/usr/local/etc/haproxy.conf').with(
             'owner' => '0',
             'group' => '0',
