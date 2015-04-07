@@ -105,6 +105,7 @@ define haproxy::balancermember (
 # }
 
   datacat_fragment { "${listening_service}_balancermember_${name}":
+    ensure => $ensure,
     target => $haproxy::config_file,
     data   => {
       'listening_services' => {
