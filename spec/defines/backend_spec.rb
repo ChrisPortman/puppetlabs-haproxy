@@ -13,10 +13,16 @@ describe 'haproxy::backend' do
   context "when no options are passed" do
     let(:title) { 'bar' }
 
-    it { should contain_datacat__fragment('bar_backend_block').with(
-      'order'   => '20-bar-00',
+    it { should contain_datacat_fragment('bar_backend_block').with(
       'target'  => '/etc/haproxy/haproxy.cfg',
-      'content' => "\nbackend bar\n  balance roundrobin\n  option tcplog\n  option ssl-hello-chk\n"
+      'data' => {
+        'listening_services' => {
+          'bar' => {
+            'config'  => "\nbackend bar\n  balance roundrobin\n  option tcplog\n  option ssl-hello-chk\n",
+            'members' => [],
+          },
+        },
+      },
     ) }
   end
 
