@@ -77,7 +77,7 @@ describe 'haproxy', :type => :class do
               'target'  => '/etc/haproxy/haproxy.cfg',
             )
           end
-          describe 'Base concat fragment contents' do
+          describe 'Base datacat fragment contents' do
             let(:contents) { param_value(catalogue, 'datacat_fragment', 'haproxy-base', 'data')['base'].split("\n") }
             # C9936 C9937
             it 'should contain global and defaults sections' do
@@ -137,7 +137,7 @@ describe 'haproxy', :type => :class do
               'target'  => '/etc/haproxy/haproxy.cfg',
             )
           end
-          describe 'Base concat fragment contents' do
+          describe 'Base datacat fragment contents' do
             let(:contents) { param_value(catalogue, 'datacat_fragment', 'haproxy-base', 'data')['base'].split("\n") }
             it 'should contain global and defaults sections' do
               contents.should include('global')
@@ -201,8 +201,8 @@ describe 'haproxy', :type => :class do
             'target'  => '/usr/local/etc/haproxy.conf',
           )
         end
-        describe 'Base concat fragment contents' do
-          let(:contents) { param_value(catalogue, 'datacat_fragment', 'haproxy-base', 'content').split("\n") }
+        describe 'Base datacat fragment contents' do
+          let(:contents) { param_value(catalogue, 'datacat_fragment', 'haproxy-base', 'data')['base'].split("\n") }
           # C9936 C9937
           it 'should contain global and defaults sections' do
             contents.should include('global')
@@ -255,7 +255,7 @@ describe 'haproxy', :type => :class do
             'target'  => '/usr/local/etc/haproxy.conf',
           )
         end
-        describe 'Base concat fragment contents' do
+        describe 'Base datacat fragment contents' do
           let(:contents) { param_value(catalogue, 'datacat_fragment', 'haproxy-base', 'data')['base'].split("\n") }
           it 'should contain global and defaults sections' do
             contents.should include('global')
