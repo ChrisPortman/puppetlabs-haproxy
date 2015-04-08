@@ -17,24 +17,15 @@ describe 'haproxy::peer' do
       }
     end
 
-    it { should contain_datacat__fragment('peers-tyler-dero').with(
-      'order'   => '30-peers-01-tyler-dero',
+    it { should contain_datacat_fragment('peers-tyler-dero').with(
       'target'  => '/etc/haproxy/haproxy.cfg',
-      'content' => "  peer dero 1.1.1.1:1024\n"
-    ) }
-  end
-
-  context 'remove a peer' do
-    let(:params) do
-      {
-        :peers_name => 'tyler',
-        :port       => 1024,
-        :ensure     => 'absent'
-      }
-    end
-
-    it { should contain_datacat__fragment('peers-tyler-dero').with(
-      'ensure' => 'absent'
+      'data' => {
+        'peers' => {
+          'tyler' => {
+            'members' => ["  peer dero 1.1.1.1:1024\n"],
+          },
+        },
+      },
     ) }
   end
 end
