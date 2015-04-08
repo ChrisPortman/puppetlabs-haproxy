@@ -18,8 +18,8 @@ describe 'haproxy::peer' do
     end
 
     it { should contain_datacat_fragment('peers-tyler-dero').with(
-      'target'  => '/etc/haproxy/haproxy.cfg',
-      'data' => {
+      'target'=> '/etc/haproxy/haproxy.cfg',
+      'data'  => {
         'peers' => {
           'tyler' => {
             'members' => ["  peer dero 1.1.1.1:1024\n"],
