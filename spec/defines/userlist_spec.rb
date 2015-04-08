@@ -26,10 +26,15 @@ describe 'haproxy::userlist' do
       }
     end
 
-    it { should contain_datacat__fragment('admins_userlist_block').with(
-      'order'   => '12-admins-00',
+    it { should contain_datacat_fragment('admins_userlist_block').with(
       'target'  => '/etc/haproxy/haproxy.cfg',
-      'content' => "\nuserlist admins\n  group superadmins users kitchen scott\n  group megaadmins users kitchen\n  user scott insecure-password elgato\n  user kitchen insecure-password foobar\n"
+      'data'    => {
+        'userlists' => {
+          'admins' => {
+            'config' => "\nuserlist admins\n  group superadmins users kitchen scott\n  group megaadmins users kitchen\n  user scott insecure-password elgato\n  user kitchen insecure-password foobar\n",
+          },
+        },
+      },
     ) }
 
   end
