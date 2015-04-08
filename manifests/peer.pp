@@ -15,7 +15,7 @@ define haproxy::peer (
 # }
 
   datacat_fragment { "peers-${peers_name}-${name}":
-    target => $haproxy::config_file,
+    target => '/etc/haproxy/haproxy.cfg',
     data   => {
       'peers' => {
         "${peers_name}" => {
